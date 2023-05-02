@@ -55,3 +55,12 @@ func (u User) GetByEmail(email string) (model.User, error) {
 	}
 	return user, nil
 }
+
+//GetAll recibe todos los registros almacenados en el storage de Users.
+func (u User) GetAll() (model.Users, error) {
+	users, err := u.storage.GetAll()
+	if err != nil {
+		return model.Users{}, err
+	}
+	return users, nil
+}
