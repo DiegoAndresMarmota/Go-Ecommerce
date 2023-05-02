@@ -46,3 +46,12 @@ func (u User) Create(m *model.User) {
 	m.Password = ""
 	//return nil
 }
+
+//GetByEmail recibe como parametro un email. Obteniendo a traves de este parametro, la información contenida en el storage de User.
+func (u User) GetByEmail(email string) (model.User, error) {
+	user, err := u.storage.GetByEmail(email)
+	if err != nil {
+		return model.User{}, err
+	}
+	return user, nil
+}
