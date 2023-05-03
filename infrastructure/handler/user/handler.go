@@ -27,3 +27,12 @@ func (h *handler) Create(c echo.Context) (err error) {
 	}
 	return c.JSON(http.StatusOK, m)
 }
+
+//Obtiene la información completa del userCase
+func (h *handler) GetAll(c echo.Context) (err error) {
+	users, err := h.useCase.GetAll()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
+	return c.JSON(http.StatusOK, users)
+}
