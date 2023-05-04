@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"database/sql"
 	"e-commerce/model"
 
 	"github.com/jackc/pgx/v5"
@@ -52,7 +53,7 @@ func (u User) GetByEmail(email string) (model.User, error) {
 	return u.scanRow(row)
 }
 
-//
+//Retorna un []Users
 func (u User) GetAll() (model.Users, error) {
 	rows, err := u.db.Query(
 		context.Background(),
@@ -74,8 +75,28 @@ func (u User) GetAll() (model.Users, error) {
 	return ms, nil
 }
 
+
+//Utiliza pgxRow para verificar y luego actualizar el model.User
 func (u User) scanRow(s pgx.Row) (model.User, error) {
-	m := model.User
+	m := model.User{}
+
+	updatedAtNull := sql.NullInt64{}
+
+	err:= s.Scan(
+		&m.ID,
+		&m.Email,
+		&m.IsAdmin,
+		&m.Details,
+		&m.CreatedAt,
+		&updatedAtNull,
+	)
+	if err != nil {
+		return m, err
+	}
+
+	m.UpdatedAt = updatedAtNull.Int64
+
+	return m, nil
 }
 
 
