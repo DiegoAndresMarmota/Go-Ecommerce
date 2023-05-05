@@ -12,6 +12,10 @@ type Error struct {
 	UserID string
 }
 
+func NewError() Error {
+	return Error{}
+}
+
 //Declaración del metodo para el manejo de errores
 func (e *Error) Error() string {
 	return fmt.Sprintf("Code: %s, Err: %s, Who: %s, StatusHTTP: %d, Data: %v, UserID: %s",
