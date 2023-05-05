@@ -18,6 +18,7 @@ require (
 	github.com/jackc/pgx/v5 v5.3.1 // indirect
 	github.com/jackc/puddle v1.3.0 // indirect
 	github.com/jackc/puddle/v2 v2.2.0 // indirect
+	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.10.2 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
