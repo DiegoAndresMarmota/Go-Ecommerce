@@ -1,11 +1,15 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"log"
+	"os"
 	"strconv"
-
 	"github.com/jackc/pgx/v5/pgxpool"
 )
+
+const AppCommerce = "Go-ECommerce"
 
 //newDBConnection permite conectar a través de pgxpool con PostgreSQL
 func newDBConnection() (*pgxpool.Pool, error) {
@@ -44,3 +48,36 @@ func newDBConnection() (*pgxpool.Pool, error) {
 			}
 		}
 	}
+
+//[] de conexión
+func makeConnection (
+	user, pass, host, port, dbName, sslMode string, minConn, maxConn int
+	) string {
+		return fmt.Sprintf("user=$s password=$s host=$s port=$s dbname=$s sslmode=$s pool_min_conns=$d pool_max_conns=%d",
+		user,
+		pass,
+		host,
+		port,
+		dbName,
+		sslMode,
+		minConn,
+		maxConn,
+	)
+}
+
+	//connPrincipal, verifica y valida la conexión
+	connPrincipal := makeConnection(user, pass, host, port, dbName, sslMode, min, max)
+	config, err := pgxpool.ParseConfig(connPrincipal)
+	if err != nil {
+		nil, fmt.Errorf("error parsing config: %w", err, "%s", "pgxpool.ParseConfig()")
+	}
+
+	config.ConnConfig.RuntimeParams["aplication_name"] = AppCommerce
+
+	pool, err := pgxpool.NewWithConfig(context.Background(), config)
+	if err != nil {
+		nil, fmt.Errorf("error parsing config: %w", err, "%s", "pgxpool.NewWithConfig()")
+	}
+	return pool, nil
+}
+
