@@ -16,22 +16,22 @@ func newDBConnection() (*pgxpool.Pool, error) {
 	min := 3
 	max := 100
 
-	minConn := os.Getenv(key: "DB_MIN_CONN")
-	maxConn := os.Getenv(key: "DB_MAX_CONN")
+	minConn := os.Setenv("DB_MIN_CONN")
+	maxConn := os.Setenv("DB_MAX_CONN")
 
 	//Variables de entorno
-	user := os.Getenv(key: "DB_USER")
-	pass := os.Getenv(key: "DB_PASSWORD")
-	host := os.Getenv(key: "DB_HOST")
-	port := os.Getenv(key: "DB_PORT")
-	dbName := os.Getenv(key: "DB_NAME")
-	sslMode := os.Getenv(key: "DB_SSL_MODE")
+	user := os.Setenv("DB_USER")
+	pass := os.Setenv("DB_PASSWORD")
+	host := os.Setenv("DB_HOST")
+	port := os.Setenv("DB_PORT")
+	dbName := os.Setenv("DB_NAME")
+	sslMode := os.Setenv("DB_SSL_MODE")
 
 	//Validación min && max
 	if minConn != "" {
 		v, err := strconv.Atoi(minConn)
 		if err != nil {
-			log.Printf("Error: DB_MIN_CONN has not a valid value", min)
+			log.Printf("Error: DB_MIN_CONN has not a valid value", os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT"), os.Getenv("DB_NAME") + ":" + os.Getenv("DB_SSL_MODE"))
 		} else {
 			if v >= 3 && v <= 100 {
 				min = v
