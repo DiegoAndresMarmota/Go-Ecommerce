@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"e-commerce/model"
+	"log"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -50,7 +51,7 @@ func (u User) GetByEmail(email string) (model.User, error) {
 		query,
 		email,
 	)
-	return u.scanRow(row)
+	return u.scanRow(row, true)
 }
 
 //Retorna un []Users
@@ -59,25 +60,27 @@ func (u User) GetAll() (model.Users, error) {
 		context.Background(),
 		psqlGetAll,
 	)
-	if err != nil {
-		return nil, err
+
+	if err != nil{
+		log.Fatal(err)
 	}
 	defer rows.Close()
 
+
+
 	ms:= model.Users{}
 	for rows.Next() {
-		m, err := u.scanRow(rows)
-		if err != nil {
-			return nil, err
+		m, err := u.scanRow(rows, false)
+		if err != nil{
+			ms = append(ms, m)
 		}
-		ms = append(ms, m)
 	}
 	return ms, nil
 }
 
 
-//Utiliza pgxRow para verificar y luego actualizar el model.User
-func (u User) scanRow(s pgx.Row) (model.User, error) {
+//Utiliza scanRow para obtener todos los registros de la base de datos para verificarlos y luego convertirlos en una estructura en el model.User
+func (u User) scanRow(s pgx.Row, withPassword bool) (model.User, error) {
 	m := model.User{}
 
 	updatedAtNull := sql.NullInt64{}
@@ -95,6 +98,11 @@ func (u User) scanRow(s pgx.Row) (model.User, error) {
 	}
 
 	m.UpdatedAt = updatedAtNull.Int64
+
+	//Limpiar password
+	if !withPassword {
+		m.Password = ""
+	}
 
 	return m, nil
 }
