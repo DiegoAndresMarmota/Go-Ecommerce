@@ -1,10 +1,8 @@
-package cmd
+package main
 
 import (
 	"log"
 	"os"
-
-	"github.com/DiegoAndresMarmota/go-ecommerce/infrastructure/handler/response"
 )
 
 func main() {

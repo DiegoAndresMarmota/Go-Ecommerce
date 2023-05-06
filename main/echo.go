@@ -1,8 +1,7 @@
 package main
 
 import (
-	"os"
-	"strings"
+	"net/http"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -16,12 +15,10 @@ func newHTTP(errorHandler echo.HTTPErrorHandler) *echo.Echo {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	corsConfig := middleware.CorsConfig{
-		AllowOrigins: strings.Split(os.Getenv( key:"ALLOWED_ORIGINS"), sep: ","),
-		ALLowMethods: strings.Split(os.Getenv( key:"ALLOWED_METHODS"), sep: ",")
-	}
-
-	e.Use(middleware.CORSWithConfig(corsConfig))
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"https://labstack.com", "https://labstack.net"},
+		AllowMethods: []string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
+}))
 
 	e.HTTPErrorHandler = errorHandler
 
