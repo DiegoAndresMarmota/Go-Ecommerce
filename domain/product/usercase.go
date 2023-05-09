@@ -69,3 +69,25 @@ func(p Product) Update(m *model.Product) error {
 	return nil
 
 }
+
+//GetByID retorna el model.Product segun el ID almacenado en el storage
+func (p Product) GetByID(ID uuid.UUID) (model.Product, error) {
+	product, err := p.storage.GetByID(ID)
+	if err != nil {
+		return model.Product{}, fmt.Errorf("product: %w", err)
+	}
+
+	return *product, nil
+
+}
+
+//GetAll retorna products
+func (p Product) GetAll() (model.Products, error) {
+	products, err := p.storage.GetAll()
+	if err != nil {
+		return nil, fmt.Errorf("product: %w", err)
+	}
+
+	return products, nil
+
+}
