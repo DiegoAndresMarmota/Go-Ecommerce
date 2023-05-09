@@ -51,3 +51,7 @@ func BuildSQLUpdate(table string, fields []string) string {
 
 	return fmt.Sprintf("UPDATE %s SET %s WHERE id = $%d", table, args.String(), k)
 }
+
+func BuildSQLDelete(table string) string {
+	return fmt.Sprintf("DELETE FROM %s WHERE id = $1", table)
+}
