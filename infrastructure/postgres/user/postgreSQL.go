@@ -12,6 +12,7 @@ var FieldEmpty = "The field is empty"
 func BuildSQLInsert(table string, fields []string) string {
 	if len(fields) == 0 {
 		return FieldEmpty
+	}
 
 	args := bytes.Buffer{}
 	values := bytes.Buffer{}
@@ -32,6 +33,7 @@ func BuildSQLInsert(table string, fields []string) string {
 	return fmt.Sprintf("INSERT INTO %s (%s) VALUES (%s)", table, args.String(), values.String())
 
 }
+
 
 //BuildSQLUpdate selectiona los campos identificados por ID y los actualiza
 func BuildSQLUpdate(table string, fields []string) string {
@@ -54,10 +56,12 @@ func BuildSQLUpdate(table string, fields []string) string {
 	return fmt.Sprintf("UPDATE %s SET %s WHERE id = $%d", table, args.String(), k)
 }
 
+
 //BuildSQLDelete elimina tabla del registro por ID
 func BuildSQLDelete(table string) string {
 	return fmt.Sprintf("DELETE FROM %s WHERE id = $1", table)
 }
+
 
 //BuildSQLSelect selecciona el campo dentro de la tabla del registro
 func BuildSQLSelect(table string, fields []string) string {
@@ -74,6 +78,7 @@ func BuildSQLSelect(table string, fields []string) string {
 	return fmt.Sprintf("SELECT %s FROM %s", args.String(), table)
 }
 
+
 //Int64Null rellena campos no válidos
 func Int64ToNull(d int64) sql.NullInt64 {
 	r := sql.NullInt64{Int64: d}
@@ -82,6 +87,4 @@ func Int64ToNull(d int64) sql.NullInt64 {
 	}
 
 	return r
-}
-
 }

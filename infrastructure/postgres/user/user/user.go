@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"database/sql"
+	postgres "e-commerce/infrastructure/postgres/user"
 	"e-commerce/model"
 	"log"
 
@@ -10,10 +11,16 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+const table = "users"
+
+var fields = []string {
+	"id", "email", "password", "details", "created_at", "updated_at",
+}
+
 //Declaración de Crear Usuario y Obtener lista de usuario.
 var (
-	psqlInsert = "INSERT INTO users (id, email, password, details, created_at) VALUES ($1, $2, $3, $4, $5)"
-	psqlGetAll = "SELECT id, email, password, details, created_at, updated_at FROM users"
+	psqlInsert = postgres.BuildSQLInsert(table, fields)
+	psqlGetAll = postgres.BuildSQLSelect(table, fields)
 )
 
 type User struct {
@@ -36,6 +43,7 @@ func (u *User) Create(m *model.User) error {
 		m.IsAdmin,
 		m.Details,
 		m.CreatedAt,
+		postgres.Int64ToNull(m.UpdatedAt),
 	)
 	if err != nil {
 		return err
