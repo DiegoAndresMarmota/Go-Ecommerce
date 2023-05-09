@@ -29,4 +29,25 @@ func BuildSQLInsert(table string, fields []string) string {
 
 	return fmt.Sprintf("INSERT INTO %s (%s) VALUES (%s)", table, args.String(), values.String())
 
+}
+
+//BuildSQLUpdate selectiona los campos identificados por ID y los actualiza
+func BuildSQLUpdate(table string, fields []string) string {
+	if len(fields) == 0 {
+		return FieldEmpty
 	}
+
+	fields = append(fields[1:], fields[0])
+	args := bytes.Buffer{}
+	k := 0
+	for _, v := range fields {
+		if v == "created_at" {
+			continue
+		}
+		args.WriteString(fmt.Sprintf("%s = $%d, ", v, k+1))
+		k++
+	}
+	args.Truncate(args.Len() - 2)
+
+	return fmt.Sprintf("UPDATE %s SET %s WHERE id = $%d", table, args.String(), k)
+}
