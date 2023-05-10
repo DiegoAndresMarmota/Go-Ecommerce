@@ -1,7 +1,9 @@
 package product
 
 import (
+	"context"
 	"e-commerce/infrastructure/postgres"
+	"e-commerce/model"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -39,3 +41,23 @@ func New(db *pgxpool.Pool) Product {
 	return Product{db:db}
 }
 
+//Create, crea a model.Product, Exec ingresa y rellena los datos de los datos correspondientes con el m de model.Product
+func (p Product) Create(m *model.Product) error {
+	_, err := p.db.Exec(
+		context.Background(),
+		psqlInsert,
+		m.ID,
+		m.ProductName,
+		m.Price,
+		m.Images,
+		m.Description,
+		m.Features,
+		m.CreatedAt,
+		postgres.Int64ToNull(m.UpdatedAt),
+	)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
