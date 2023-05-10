@@ -41,7 +41,7 @@ func New(db *pgxpool.Pool) Product {
 	return Product{db:db}
 }
 
-//Create, crea a model.Product, Exec ingresa y rellena los datos de los datos correspondientes con el m de model.Product
+//Create, crea a model.Product, .exec ingresa y rellena los datos de los datos correspondientes con el m de model.Product
 func (p Product) Create(m *model.Product) error {
 	_, err := p.db.Exec(
 		context.Background(),
@@ -59,5 +59,24 @@ func (p Product) Create(m *model.Product) error {
 		return err
 	}
 
+	return nil
+}
+
+//Update, actualiza el model.Product, .exec edita los datos correspondientes con el m de model.Product
+func (p *Product) Update(m *model.Product) error {
+	_, err := p.db.Exec(
+		context.Background(),
+		psqlUpdate,
+		m.ProductName,
+		m.Price,
+		m.Images,
+		m.Description,
+		m.Features,
+		m.UpdatedAt,
+		m.ID,
+	)
+	if err != nil {
+		return err
+	}
 	return nil
 }
