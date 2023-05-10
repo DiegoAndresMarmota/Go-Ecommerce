@@ -6,7 +6,10 @@ import (
 	"e-commerce/model"
 
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"database/sql"
+
 )
 
 //Table, como nombre de la tabla.
@@ -28,7 +31,7 @@ var fields = []string{
 var (
 	psqlInsert = postgres.BuildSQLInsert(table, fields)
 	psqlUpdate = postgres.BuildSQLUpdate(table, fields)
-	psqlDelete = postgres.BuildSQLDelete(table, fields)
+	psqlDelete = postgres.BuildSQLDelete(table)
 	psqlGetAll = postgres.BuildSQLGetAll(table, fields)
 )
 
@@ -95,4 +98,65 @@ func (p Product) Delete(ID uuid.UUID) error {
 
 	return nil
 
+}
+
+//GetByID obtiene un model.Product, según ID.
+func (p Product) GetByID(ID uuid.UUID) (model.Product, error) {
+	query := psqlGetAll + " WHERE id = $1"
+	row := p.db.QueryRow(
+		context.Background(),
+		query,
+		ID,
+	)
+
+	return p.scanRow(row)
+}
+
+//GetAll obtiene todos los model.Products con sus campos respectivos
+func (p Product) GetAll() (model.Products, error) {
+	rows, err := p.db.Query(
+		context.Background(),
+		psqlGetAll,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var ms model.Products
+	for rows.Next() {
+		m, err := p.scanRow(rows)
+		if err != nil {
+			return nil, err
+		}
+		ms = append(ms, m)
+	}
+
+	return ms, nil
+
+}
+
+//scanRow retorna un scan de pgx.Row de model.Product
+func (p Product) scanRow(s pgx.Row) (model.Product, error) {
+	m := model.Product{}
+
+	updatedAtNull := sql.NullInt64{}
+
+	err := s.Scan(
+		&m.ID,
+		&m.ProductName,
+		&m.Price,
+		&m.Images,
+		&m.Description,
+		&m.Features,
+		&m.CreatedAt,
+		&updatedAtNull,
+	)
+	if err != nil {
+		return m, err
+	}
+
+	m.UpdatedAt = updatedAtNull.Int64
+
+	return m, nil
 }
