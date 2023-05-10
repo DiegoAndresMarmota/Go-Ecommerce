@@ -55,3 +55,18 @@ func (h handler) Update(c echo.Context) error {
 
 	return c.JSON(h.response.Updated(m))
 }
+
+// Delete handles the deleting of a model.Product
+func (h handler) Delete(c echo.Context) error {
+	ID, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		return h.response.BindFailed(err)
+	}
+
+	err = h.useCase.Delete(ID)
+	if err != nil {
+		return h.response.Error(c, "useCase.Delete()", err)
+	}
+
+	return c.JSON(h.response.Deleted(nil))
+}
