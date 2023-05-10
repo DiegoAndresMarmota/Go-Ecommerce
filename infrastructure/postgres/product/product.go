@@ -5,6 +5,7 @@ import (
 	"e-commerce/infrastructure/postgres"
 	"e-commerce/model"
 
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -63,7 +64,7 @@ func (p Product) Create(m *model.Product) error {
 }
 
 //Update, actualiza el model.Product, .exec edita los datos correspondientes con el m de model.Product
-func (p *Product) Update(m *model.Product) error {
+func (p Product) Update(m *model.Product) error {
 	_, err := p.db.Exec(
 		context.Background(),
 		psqlUpdate,
@@ -79,4 +80,19 @@ func (p *Product) Update(m *model.Product) error {
 		return err
 	}
 	return nil
+}
+
+//Delete, elimina el model.Product según ID del Product
+func (p Product) Delete(ID uuid.UUID) error {
+	_, err := p.db.Exec(
+		context.Background(),
+		psqlDelete,
+		ID,
+	)
+	if err != nil {
+		return err
+	}
+
+	return nil
+
 }
