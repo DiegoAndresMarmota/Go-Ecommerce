@@ -78,6 +78,14 @@ func BuildSQLSelect(table string, fields []string) string {
 	return fmt.Sprintf("SELECT %s FROM %s", args.String(), table)
 }
 
+//
+func BuildSQLGetAll(table string, fields []string) string {
+	if len(fields) == 0 {
+		return FieldEmpty
+	}
+
+	return fmt.Sprintf("SELECT %s FROM %s", table, fields)
+}
 
 //Int64Null rellena campos no válidos
 func Int64ToNull(d int64) sql.NullInt64 {
