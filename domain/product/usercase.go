@@ -70,6 +70,16 @@ func(p Product) Update(m *model.Product) error {
 
 }
 
+// Delete elimina el model.Product por ID en el storage
+func (p Product) Delete(ID uuid.UUID) error {
+	err := p.storage.Delete(ID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 //GetByID retorna el model.Product segun el ID almacenado en el storage
 func (p Product) GetByID(ID uuid.UUID) (model.Product, error) {
 	product, err := p.storage.GetByID(ID)
@@ -77,7 +87,7 @@ func (p Product) GetByID(ID uuid.UUID) (model.Product, error) {
 		return model.Product{}, fmt.Errorf("product: %w", err)
 	}
 
-	return *product, nil
+	return product, nil
 
 }
 
