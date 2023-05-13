@@ -1,4 +1,4 @@
-package handler
+package purchaseorder
 
 import (
 	"e-commerce/domain/purchaseorder"
