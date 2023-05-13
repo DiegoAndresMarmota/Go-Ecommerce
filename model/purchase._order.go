@@ -60,3 +60,30 @@ func (p PurchaseOrder) Validate() error {
 
 	return nil
 }
+
+//TotalAmount establece si la cantidad de productos y el valor  total de cada uno de ellos.
+func (p PurchaseOrder) TotalAmount() float64 {
+	if len(p.Products) == 0 {
+		return 0
+	}
+
+	//Validación de agregar p.Products en Shopping
+	var shopping []ProductToPurchase
+	err := json.Unmarshal(p.Products, &shopping)
+	if err != nil {
+		return 0
+	}
+
+	//Calculo del total de la orden de compra
+	var total float64
+	for _, v := range shopping {
+		total += float64(v.Amount) * v.UnitPrice
+	}
+
+	return total
+}
+
+//IsEmpty retorna True si hay p en PurchaseOrders
+func (p PurchaseOrders) IsEmpty() bool {
+	return len(p) == 0
+}
