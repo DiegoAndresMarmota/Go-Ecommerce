@@ -43,3 +43,13 @@ func (p PurchaseOrder) Create(m *model.PurchaseOrder) error {
 
 	return nil
 }
+
+//GetByID consulta y entrega el ID almacenado en el Storage, según la orden de pago
+func (p PurchaseOrder) GetByID(ID uuid.UUID) (model.PurchaseOrder, error) {
+	purchaseOrder, err := p.storage.GetByID(ID)
+	if err != nil {
+		return model.PurchaseOrder{}, fmt.Errorf("purchaseorder: %w", err)
+	}
+
+	return *purchaseOrder, nil
+}
