@@ -1,10 +1,9 @@
-package cmd
+package main
 
 import (
+	"e-commerce/infrastructure/handler/response"
 	"log"
 	"os"
-
-	"github.com/DiegoAndresMarmota/go-ecommerce/infrastructure/handler/response"
 )
 
 func main() {
@@ -32,8 +31,12 @@ func main() {
 	_ = dbPool
 
 	//Inicialización
-	err = e.Start(":" + os.Getenv(key: "SERVER_PORT"))
+	err = e.Start(":" + os.Getenv("SERVER_PORT"))
 	if err != nil {
 		log.Fatal(err)
 	}
 }
+
+
+//Pendiente Crear newDBConnection en database
+//Pendiente Crear response en handleerror

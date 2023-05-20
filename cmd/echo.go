@@ -16,9 +16,9 @@ func newHTTP(errorHandler echo.HTTPErrorHandler) *echo.Echo {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	corsConfig := middleware.CorsConfig{
-		AllowOrigins: strings.Split(os.Getenv( key:"ALLOWED_ORIGINS"), sep: ","),
-		ALLowMethods: strings.Split(os.Getenv( key:"ALLOWED_METHODS"), sep: ",")
+	corsConfig := middleware.CORSConfig{
+		AllowOrigins: strings.Split(os.Getenv("ALLOWED_ORIGINS"), ","),
+		AllowMethods: strings.Split(os.Getenv("ALLOWED_METHODS"), ","),
 	}
 
 	e.Use(middleware.CORSWithConfig(corsConfig))
