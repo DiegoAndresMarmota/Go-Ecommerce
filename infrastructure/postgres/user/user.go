@@ -3,12 +3,12 @@ package user
 import (
 	"context"
 	"database/sql"
-	postgres "e-commerce/infrastructure/postgres/user"
 	"e-commerce/model"
 	"log"
-
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
+	postgres "e-commerce/infrastructure/postgres"
+	//e-commerce/infrastructure/postgres/user
 )
 
 const table = "users"
