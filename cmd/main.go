@@ -1,6 +1,7 @@
 package main
 
 import (
+	"e-commerce/infrastructure/handler"
 	"e-commerce/infrastructure/handler/response"
 	"log"
 	"os"
@@ -28,6 +29,7 @@ func main() {
 		log.Fatal(err)
 	}
 
+	handler.InitRoutes(e, dbPool)
 	_ = dbPool
 
 	//Inicialización
