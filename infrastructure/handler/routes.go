@@ -1,6 +1,9 @@
 package handler
 
 import (
+	"e-commerce/infrastructure/handler/product"
+	"e-commerce/infrastructure/handler/purchaseorder"
+	"e-commerce/infrastructure/handler/user"
 	"net/http"
 	"time"
 
@@ -11,6 +14,11 @@ import (
 //Inicializador de rutas
 func InitRoutes(e *echo.Echo, dbPool *pgxpool.Pool) {
 	health(e)
+
+	//Routes de handler
+	product.NewRouter(e, dbPool)
+	purchaseorder.NewRouter(e, dbPool)
+	user.NewRouter(e, dbPool)
 }
 
 //Ruta Ok
