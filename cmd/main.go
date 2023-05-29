@@ -1,6 +1,9 @@
 package main
 
 import (
+	"gorm.io/gorm"
+	"gorm.io/driver/postgres"
+	"database/sql"
 	"e-commerce/infrastructure/handler"
 	"e-commerce/infrastructure/handler/response"
 	"log"
@@ -13,6 +16,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	//Migrar SQL
+	sqlDB, err := sql.Open("pgx")
+	db, err := gorm.Open(postgres.New(postgres.Config{
+		Conn: sqlDB,
+	}), &gorm.Config{})
+
 
 	//Validar variables de entorno cargadas
 	err = validateEnv()
