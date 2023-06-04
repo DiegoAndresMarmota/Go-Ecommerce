@@ -65,3 +65,20 @@ func (u User) GetAll() (model.Users, error) {
 	}
 	return users, nil
 }
+
+//Login recibe el email realizando una petición a GetByEmail, mientras el password es comparado con bcrypt con el hash guardado para validar el usuario.
+func (u User) Login(email, password string) (model.User, error) {
+	m, err := u.GetByEmail(email)
+	if err != nil {
+		return model.User{}, fmt.Errorf("%s %w", "user.GetByEmail()", err)
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(m.Password), []byte(password))
+	if err != nil {
+		return model.User{}, fmt.Errorf("%s %w", "bcrypt.CompareHashAndPassword()", err)
+	}
+
+	m.Password = ""
+
+	return m, nil
+}
