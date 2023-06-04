@@ -14,7 +14,7 @@ import (
 const table = "users"
 
 var fields = []string {
-	"id", "email", "password", "details", "created_at", "updated_at",
+	"id", "email", "password", "is_admin", "details", "created_at", "updated_at",
 }
 
 //Declaración de Crear Usuario y Obtener lista de usuario.
