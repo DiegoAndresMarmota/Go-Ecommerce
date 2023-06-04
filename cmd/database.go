@@ -49,7 +49,7 @@ func newDBConnection() (*pgxpool.Pool, error) {
 	}
 
 	//checkStatusString verifica y valida la conexión
-	checkStatusString := ParamsURL(user, pass, host, port, dbName, sslMode, min, max)
+	checkStatusString := paramsURL(user, pass, host, port, dbName, sslMode, min, max)
 	config, err := pgxpool.ParseConfig(checkStatusString)
 	if err != nil {
 		return nil, fmt.Errorf("%s %w", "pgxpool.ParseConfig()", err)
@@ -65,7 +65,7 @@ func newDBConnection() (*pgxpool.Pool, error) {
 	return pool, nil
 }
 
-func ParamsURL(user, pass, host, port, dbName, sslMode string, minConn, maxConn int) string {
+func paramsURL(user, pass, host, port, dbName, sslMode string, minConn, maxConn int) string {
 	return fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=%s pool_min_conns=%d pool_max_conns=%d",
 		user,
 		pass,
