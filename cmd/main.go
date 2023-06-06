@@ -1,9 +1,6 @@
 package main
 
 import (
-	"gorm.io/gorm"
-	"gorm.io/driver/postgres"
-	"database/sql"
 	"e-commerce/infrastructure/handler"
 	"e-commerce/infrastructure/handler/response"
 	"log"
@@ -18,11 +15,6 @@ func main() {
 	}
 
 	//Migrar SQL
-	sqlDB, err := sql.Open("pgx")
-	db, err := gorm.Open(postgres.New(postgres.Config{
-		Conn: sqlDB,
-	}), &gorm.Config{})
-
 
 	//Validar variables de entorno cargadas
 	err = validateEnv()
@@ -40,7 +32,6 @@ func main() {
 	}
 
 	handler.InitRoutes(e, dbPool)
-	_ = dbPool
 
 	//Inicialización
 	err = e.Start(":" + os.Getenv("SERVER_PORT"))
@@ -51,4 +42,4 @@ func main() {
 
 
 //Pendiente Crear newDBConnection en database
-//Pendiente Crear response en handleerror
+
