@@ -7,7 +7,7 @@ type Error struct {
 	Err error
 	Who string
 	StatusHTTP int
-	Data any
+	Data interface{}
 	APIMessage string
 	UserID string
 }
@@ -28,7 +28,7 @@ func (e *Error) HasCode() bool {
 	return e.Code != ""
 }
 
-func (e *Error) hasStatusHTTP() bool {
+func (e *Error) HasStatusHTTP() bool {
 	return e.StatusHTTP > 0
 }
 
