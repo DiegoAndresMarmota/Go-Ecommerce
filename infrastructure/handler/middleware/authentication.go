@@ -2,10 +2,13 @@ package middleware
 
 import (
 	"e-commerce/infrastructure/handler/response"
+	"e-commerce/model"
 	"errors"
+	"log"
 	"net/http"
+	"os"
 	"strings"
-
+	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 )
 
@@ -52,4 +55,25 @@ func getTokenFromRequest(r *http.Request) (string, error) {
 	}
 
 	return data, nil
+}
+
+//AuthMiddleware recibe de validate un token y entrega si es valido y el JWT
+func (au AuthMiddleware) validate(token string) (bool, model.JWT) {
+	claims, err := jwt.ParseWithClaims(token, &model.JWT{}, func(t *jwt.Token) (interface{}, error) {
+		return []byte(os.Getenv("JWT_SECRET_KEY")), nil
+	})
+	if err != nil {
+		log.Println(token)
+		log.Println(os.Getenv("JWT_SECRET_KEY"))
+		log.Println(err)
+		return false, model.JWT{}
+	}
+
+	data, ok := claims.Claims.(*model.JWT)
+	if !ok {
+		log.Println("is not a jwt valid")
+		return false, model.JWT{}
+	}
+
+	return true, *data
 }
