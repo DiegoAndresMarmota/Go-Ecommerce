@@ -21,8 +21,8 @@ func NewRouter(e *echo.Echo, dbPool *pgxpool.Pool) {
 
 //
 func buildHandler(dbPool *pgxpool.Pool) handler {
-	userCase := product.New(productStorage.New(dbPool))
-	return newHandler(userCase)
+	useCase := product.New(productStorage.New(dbPool))
+	return newHandler(useCase)
 }
 
 
