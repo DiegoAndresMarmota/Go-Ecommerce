@@ -14,7 +14,7 @@ import (
 
 
 type AuthMiddleware struct {
-	responser response.API
+	responsed response.API
 }
 
 func New() AuthMiddleware {
@@ -26,13 +26,13 @@ func (au AuthMiddleware) IsValid(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		token, err := getTokenFromRequest(c.Request())
 		if err != nil {
-			return au.responser.BindFailed(err)
+			return au.responsed.BindFailed(err)
 		}
 
 		isValid, claims := au.validate(token)
 		if !isValid {
 			err = errors.New("Token is not valid")
-			return au.responser.BindFailed(err)
+			return au.responsed.BindFailed(err)
 		}
 
 		c.Set("userID", claims.UserID)
@@ -84,7 +84,7 @@ func (am AuthMiddleware) IsAdmin(next echo.HandlerFunc) echo.HandlerFunc {
 		isAdmin, ok := c.Get("isAdmin").(bool)
 		if !isAdmin || !ok {
 			err := errors.New("you are not admin")
-			return am.responser.BindFailed(err)
+			return am.responsed.BindFailed(err)
 		}
 
 		return next(c)

@@ -14,7 +14,7 @@ import (
 
 type handler struct {
 	useCase   login.UseCase
-	responser response.API
+	responsed response.API
 }
 
 //newHandler instancia un nuevo handler
@@ -27,7 +27,7 @@ func (h handler) Login(c echo.Context) error {
 	m := model.Login{}
 	err := c.Bind(&m)
 	if err != nil {
-		return h.responser.BindFailed(err)
+		return h.responsed.BindFailed(err)
 	}
 
 	u, t, err := h.useCase.Login(m.Email, m.Password, os.Getenv("JWT_SECRET_KEY"))
@@ -40,8 +40,8 @@ func (h handler) Login(c echo.Context) error {
 			}
 			return c.JSON(http.StatusBadRequest, resp)
 		}
-		return h.responser.Error(c, "useCase.Login()", err)
+		return h.responsed.Error(c, "useCase.Login()", err)
 	}
 
-	return c.JSON(h.responser.OK(map[string]interface{}{"user": u, "token": t}))
+	return c.JSON(h.responsed.OK(map[string]interface{}{"user": u, "token": t}))
 }

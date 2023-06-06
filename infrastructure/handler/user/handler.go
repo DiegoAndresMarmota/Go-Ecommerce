@@ -9,12 +9,12 @@ import (
 )
 
 type handler struct {
-	useCase user.UserCase
+	useCase user.UseCase
 	responsed response.API
 }
 
 // NewHandler retorna la implementación del dominio como un punto de entrada
-func newHandler(uc user.UserCase) handler {
+func newHandler(uc user.UseCase) handler {
 	return handler{useCase: uc}
 }
 

@@ -4,8 +4,8 @@ import (
 	"github.com/google/uuid"
 )
 
-// TicketPurchase model of table TicketPurchase
-type TicketPurchase struct {
+// Invoice model of table Invoice
+type Invoice struct {
 	ID              uuid.UUID `json:"id"`
 	UserID          uuid.UUID `json:"user_id"`
 	PurchaseOrderID uuid.UUID `json:"purchase_order_id"`
@@ -13,19 +13,19 @@ type TicketPurchase struct {
 	UpdatedAt       int64     `json:"updated_at"`
 }
 
-//Verificación de TicketPurchase existe(ID)
-func (i TicketPurchase) HasID() bool {
+//Verificación de Invoice existe(ID)
+func (i Invoice) HasID() bool {
 	return i.ID != uuid.Nil
 }
 
-// TicketPurchases slice of TicketPurchase
-type TicketPurchases []TicketPurchase
+// Invoices slice of TicketPurchase
+type Invoices []Invoice
 
-//Verificación de TicketPurchase se encuentra vacío
-func (i TicketPurchases) IsEmpty() bool { return len(i) == 0 }
+//Verificación de Invoice se encuentra vacío
+func (i Invoices) IsEmpty() bool { return len(i) == 0 }
 
 //Historial del slice de TicketPurchase, retornando el ID y el TicketPurchase asociado.
-func (i TicketPurchases) IDs() []uuid.UUID {
+func (i Invoices) IDs() []uuid.UUID {
 	var resp []uuid.UUID
 	for _, v := range i {
 		resp = append(resp, v.ID)
