@@ -77,3 +77,16 @@ func (au AuthMiddleware) validate(token string) (bool, model.JWT) {
 
 	return true, *data
 }
+
+//AuthMiddleware recibe IsAdmin, luego de validar si el user IsValid, recibiendo un echo.Context
+func (am AuthMiddleware) IsAdmin(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		isAdmin, ok := c.Get("isAdmin").(bool)
+		if !isAdmin || !ok {
+			err := errors.New("you are not admin")
+			return am.responser.BindFailed(err)
+		}
+
+		return next(c)
+	}
+}
