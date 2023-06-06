@@ -7,13 +7,13 @@ import (
 	"log"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
-	postgres "e-commerce/infrastructure/postgres"
+	"e-commerce/infrastructure/postgres"
 	//e-commerce/infrastructure/postgres/user
 )
 
 const table = "users"
 
-var fields = []string {
+var fields = []string{
 	"id", "email", "password", "is_admin", "details", "created_at", "updated_at",
 }
 
@@ -33,7 +33,7 @@ func New(db *pgxpool.Pool) *User {
 }
 
 //Creación de User a través de psqlInsert en el model.User
-func (u *User) Create(m *model.User) error {
+func (u User) Create(m *model.User) error {
 	_, err := u.db.Exec(
 		context.Background(),
 		psqlInsert,
@@ -114,5 +114,3 @@ func (u User) scanRow(s pgx.Row, withPassword bool) (model.User, error) {
 
 	return m, nil
 }
-
-
