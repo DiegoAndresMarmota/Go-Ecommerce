@@ -2,7 +2,7 @@ package login
 
 import (
 	"e-commerce/domain/login"
-	"e-commerce/infrastructure/postgres/user"
+	"e-commerce/domain/user"
 	userStorage "e-commerce/infrastructure/postgres/user"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
