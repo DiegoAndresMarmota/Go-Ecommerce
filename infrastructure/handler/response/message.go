@@ -2,13 +2,14 @@ package response
 
 import (
 	"net/http"
+
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
-	"e-commerce/model"
 )
 
-//const Code del struct Response
+// const Code del struct Response
 const (
 	BindFailed      = "bind_failed"
 	Ok              = "ok"
@@ -21,12 +22,12 @@ const (
 
 type API struct{}
 
-//API
+// API
 func New() API {
 	return API{}
 }
 
-//Response --> Cuando la API reciba una Data, y este OK, se responde con StatusOk del type Response
+// Response --> Cuando la API reciba una Data, y este OK, se responde con StatusOk del type Response
 func (a API) OK(data interface{}) (int, model.MessageResponse) {
 	return http.StatusOK, model.MessageResponse{
 		Data:     data,
@@ -34,8 +35,7 @@ func (a API) OK(data interface{}) (int, model.MessageResponse) {
 	}
 }
 
-
-//Response --> Cuando la API reciba una petición para crear(POST), y este RecordCreated, se responde con un StatusCreated del type Response
+// Response --> Cuando la API reciba una petición para crear(POST), y este RecordCreated, se responde con un StatusCreated del type Response
 func (a API) Created(data interface{}) (int, model.MessageResponse) {
 	return http.StatusCreated, model.MessageResponse{
 		Data:     data,
@@ -43,8 +43,7 @@ func (a API) Created(data interface{}) (int, model.MessageResponse) {
 	}
 }
 
-
-//Response --> Cuando la API reciba una petición para actualizar(PUT), y este RecordUpdated, se responde con StatusOk del type Response
+// Response --> Cuando la API reciba una petición para actualizar(PUT), y este RecordUpdated, se responde con StatusOk del type Response
 func (a API) Updated(data interface{}) (int, model.MessageResponse) {
 	return http.StatusOK, model.MessageResponse{
 		Data:     data,
@@ -52,8 +51,7 @@ func (a API) Updated(data interface{}) (int, model.MessageResponse) {
 	}
 }
 
-
-//Response --> Cuando la API reciba una petición para eliminar(DELETE), y este RecordDeleted, se responde con StatusOk del type Response
+// Response --> Cuando la API reciba una petición para eliminar(DELETE), y este RecordDeleted, se responde con StatusOk del type Response
 func (a API) Deleted(data interface{}) (int, model.MessageResponse) {
 	return http.StatusOK, model.MessageResponse{
 		Data:     data,
@@ -61,8 +59,7 @@ func (a API) Deleted(data interface{}) (int, model.MessageResponse) {
 	}
 }
 
-
-//Response --> Cuando la API recibe un error del JSON recibido.
+// Response --> Cuando la API recibe un error del JSON recibido.
 func (a API) BindFailed(err error) error {
 	e := model.NewError()
 	e.Err = err
@@ -74,8 +71,7 @@ func (a API) BindFailed(err error) error {
 	return &e
 }
 
-
-//Response --> Cuando la API recibe un error interno.
+// Response --> Cuando la API recibe un error interno.
 func (a API) Error(c echo.Context, who string, err error) *model.Error {
 	e := model.NewError()
 	e.Err = err

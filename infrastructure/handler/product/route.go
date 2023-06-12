@@ -1,9 +1,12 @@
 package product
 
 import (
-	"e-commerce/domain/product"
-	productStorage "e-commerce/infrastructure/postgres/product"
 	"e-commerce/infrastructure/handler/middleware"
+
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/middleware"
+	productStorage "github.com/diegoandresmarmota/go-ecommerce/infrastructure/postgres/product"
+
+	"github.com/diegoandresmarmota/go-ecommerce/domain/product"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
 )
@@ -19,12 +22,10 @@ func NewRouter(e *echo.Echo, dbPool *pgxpool.Pool) {
 	publicRoutes(e, h)
 }
 
-//
 func buildHandler(dbPool *pgxpool.Pool) handler {
 	useCase := product.New(productStorage.New(dbPool))
 	return newHandler(useCase)
 }
-
 
 // adminRoutes handle, maneja las rutas
 func adminRoutes(e *echo.Echo, h handler, middlewares ...echo.MiddlewareFunc) {

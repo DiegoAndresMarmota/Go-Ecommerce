@@ -1,15 +1,17 @@
 package user
 
 import (
-	"e-commerce/domain/user"
-	"e-commerce/infrastructure/handler/middleware"
 	storageUser "e-commerce/infrastructure/postgres/user"
+
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/middleware"
+
+	"github.com/diegoandresmarmota/go-ecommerce/domain/user"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
 )
 
-//Ruta Principal
+// Ruta Principal
 func NewRouter(e *echo.Echo, dbPool *pgxpool.Pool) {
 	h := buildHandler(dbPool)
 
@@ -24,7 +26,7 @@ func buildHandler(dbPool *pgxpool.Pool) handler {
 	return newHandler(useCase)
 }
 
-//Ruta de admin
+// Ruta de admin
 func adminRoutes(e *echo.Echo, h handler, middlewares ...echo.MiddlewareFunc) {
 	g := e.Group("/api/v1/admin/users", middlewares...)
 

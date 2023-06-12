@@ -1,15 +1,17 @@
 package user
 
 import (
-	"e-commerce/domain/user"
-	"e-commerce/infrastructure/handler/response"
-	"e-commerce/model"
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response""
+
+	"github.com/diegoandresmarmota/go-ecommerce/domain/user"
+
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 
 	"github.com/labstack/echo/v4"
 )
 
 type handler struct {
-	useCase user.UseCase
+	useCase   user.UseCase
 	responsed response.API
 }
 
@@ -18,7 +20,7 @@ func newHandler(uc user.UseCase) handler {
 	return handler{useCase: uc}
 }
 
-//Crea la conexión con Echo
+// Crea la conexión con Echo
 func (h *handler) Create(c echo.Context) (err error) {
 	m := model.User{}
 
@@ -36,7 +38,7 @@ func (h *handler) Create(c echo.Context) (err error) {
 	return c.JSON(h.responsed.Created(m))
 }
 
-//Obtiene la información completa del userCase
+// Obtiene la información completa del userCase
 func (h *handler) GetAll(c echo.Context) (err error) {
 	users, err := h.useCase.GetAll()
 	if err != nil {

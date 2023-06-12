@@ -1,11 +1,13 @@
 package purchaseorder
 
 import (
-	"e-commerce/domain/purchaseorder"
+	purchaseorderStorage "github.com/diegoandresmarmota/go-ecommerce/infrastructure/postgres/purchaseorder"
+
+	"github.com/diegoandresmarmota/go-ecommerce/domain/purchaseorder"
+
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/middleware"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
-	purchaseorderStorage "e-commerce/infrastructure/postgres/purchaseorder"
-	"e-commerce/infrastructure/handler/middleware"
 )
 
 // NewRouter retorna un router para conectarse  a la petición de handle model.PurchaseOrder

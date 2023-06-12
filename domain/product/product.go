@@ -1,11 +1,10 @@
 package product
 
 import (
-	"e-commerce/model"
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 
 	"github.com/google/uuid"
 )
-
 
 type UserCase interface {
 	Create(m *model.Product) error

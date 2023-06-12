@@ -1,4 +1,4 @@
-module e-commerce
+module github.com/DiegoAndresMarmota/Go-Ecommerce
 
 go 1.20
 

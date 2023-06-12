@@ -1,17 +1,18 @@
 package middleware
 
 import (
-	"e-commerce/infrastructure/handler/response"
-	"e-commerce/model"
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response""
+
 	"errors"
 	"log"
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 )
-
 
 type AuthMiddleware struct {
 	responsed response.API
@@ -43,7 +44,7 @@ func (au AuthMiddleware) IsValid(next echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
-//getTokenFromRequest, recibe un request, obteniendolo del Header, entregando data, para chequear el token.
+// getTokenFromRequest, recibe un request, obteniendolo del Header, entregando data, para chequear el token.
 func getTokenFromRequest(r *http.Request) (string, error) {
 	data := r.Header.Get("Authorization")
 	if data == "" {
@@ -57,7 +58,7 @@ func getTokenFromRequest(r *http.Request) (string, error) {
 	return data, nil
 }
 
-//AuthMiddleware recibe de validate un token y entrega si es valido y el JWT
+// AuthMiddleware recibe de validate un token y entrega si es valido y el JWT
 func (au AuthMiddleware) validate(token string) (bool, model.JWT) {
 	claims, err := jwt.ParseWithClaims(token, &model.JWT{}, func(t *jwt.Token) (interface{}, error) {
 		return []byte(os.Getenv("JWT_SECRET_KEY")), nil
@@ -78,7 +79,7 @@ func (au AuthMiddleware) validate(token string) (bool, model.JWT) {
 	return true, *data
 }
 
-//AuthMiddleware recibe IsAdmin, luego de validar si el user IsValid, recibiendo un echo.Context
+// AuthMiddleware recibe IsAdmin, luego de validar si el user IsValid, recibiendo un echo.Context
 func (am AuthMiddleware) IsAdmin(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		isAdmin, ok := c.Get("isAdmin").(bool)

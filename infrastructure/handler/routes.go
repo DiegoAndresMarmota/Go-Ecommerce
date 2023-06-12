@@ -1,13 +1,12 @@
 package handler
 
 import (
-	"e-commerce/infrastructure/handler/login"
-	"e-commerce/infrastructure/handler/product"
-	"e-commerce/infrastructure/handler/purchaseorder"
-	"e-commerce/infrastructure/handler/user"
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/login"
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/product"
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/purchaseorder"
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/user"
 	"net/http"
 	"time"
-
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
 )

@@ -2,9 +2,11 @@ package purchaseorder
 
 import (
 	"context"
-	"e-commerce/infrastructure/postgres"
-	"e-commerce/model"
 	"fmt"
+
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/postgres"
+
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -26,17 +28,17 @@ var (
 	psqlInsert = postgres.BuildSQLInsert(table, fields)
 )
 
-//TicketPurchase struct implementa la interface de domain.TicketPurchase.Storage
+// TicketPurchase struct implementa la interface de domain.TicketPurchase.Storage
 type TicketPurchase struct {
 	db *pgxpool.Pool
 }
 
-//New regresa a new TicketPurchase storage
+// New regresa a new TicketPurchase storage
 func New(db *pgxpool.Pool) TicketPurchase {
 	return TicketPurchase{db: db}
 }
 
-//$
+// $
 func (i TicketPurchase) getTx() (pgx.Tx, error) {
 	return i.db.Begin(context.Background())
 }

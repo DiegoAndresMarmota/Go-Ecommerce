@@ -2,9 +2,9 @@ package login
 
 import (
 	"database/sql"
-	"e-commerce/domain/login"
-	"e-commerce/infrastructure/handler/response"
-	"e-commerce/model"
+	"github.com/diegoandresmarmota/e-commerce/infrastructure/handler/response"
+	"github.com/diegoandresmarmota/e-commerce/domain/login"
+	"github.com/diegoandresmarmota/e-commerce/model"
 	"errors"
 	"net/http"
 	"os"

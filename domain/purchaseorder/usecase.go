@@ -1,9 +1,10 @@
 package purchaseorder
 
 import (
-	"e-commerce/model"
 	"fmt"
 	"time"
+
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 
 	"github.com/google/uuid"
 )
@@ -16,7 +17,7 @@ type PurchaseOrder struct {
 // New realiza a nueva PurchaseOrder, según los métodos del Storage
 func New(s Storage) PurchaseOrder {
 	return PurchaseOrder{storage: s}
-	}
+}
 
 // Create ingresa una nueva variable en model.PurchaseOrder
 func (p PurchaseOrder) Create(m *model.PurchaseOrder) error {
@@ -44,7 +45,7 @@ func (p PurchaseOrder) Create(m *model.PurchaseOrder) error {
 	return nil
 }
 
-//GetByID consulta y entrega el ID almacenado en el Storage, según la orden de pago
+// GetByID consulta y entrega el ID almacenado en el Storage, según la orden de pago
 func (p PurchaseOrder) GetByID(ID uuid.UUID) (model.PurchaseOrder, error) {
 	purchaseOrder, err := p.storage.GetByID(ID)
 	if err != nil {
