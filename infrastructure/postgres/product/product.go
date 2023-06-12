@@ -2,20 +2,21 @@ package product
 
 import (
 	"context"
-	"e-commerce/infrastructure/postgres"
-	"e-commerce/model"
+
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/postgres"
+	"github.com/diegoandresmarmota/go-ecommerce/model"
+
+	"database/sql"
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"database/sql"
-
 )
 
-//Table, como nombre de la tabla.
+// Table, como nombre de la tabla.
 const table = "products"
 
-//Fields, como los []de campos que tendra la tabla.
+// Fields, como los []de campos que tendra la tabla.
 var fields = []string{
 	"id",
 	"product_name",
@@ -27,7 +28,7 @@ var fields = []string{
 	"updated_at",
 }
 
-//SQLBuilder para la tabla
+// SQLBuilder para la tabla
 var (
 	psqlInsert = postgres.BuildSQLInsert(table, fields)
 	psqlUpdate = postgres.BuildSQLUpdate(table, fields)
@@ -35,17 +36,17 @@ var (
 	psqlGetAll = postgres.BuildSQLGetAll(table, fields)
 )
 
-//Product struct, implementa la interface de domain.product.Storage, recibiendo pgxpool como conexión.
+// Product struct, implementa la interface de domain.product.Storage, recibiendo pgxpool como conexión.
 type Product struct {
 	db *pgxpool.Pool
 }
 
-//New retorna un nuevo Product en el storage
+// New retorna un nuevo Product en el storage
 func New(db *pgxpool.Pool) Product {
-	return Product{db:db}
+	return Product{db: db}
 }
 
-//Create, crea a model.Product, .exec ingresa y rellena los datos de los datos correspondientes con el m de model.Product
+// Create, crea a model.Product, .exec ingresa y rellena los datos de los datos correspondientes con el m de model.Product
 func (p Product) Create(m *model.Product) error {
 	_, err := p.db.Exec(
 		context.Background(),
@@ -66,7 +67,7 @@ func (p Product) Create(m *model.Product) error {
 	return nil
 }
 
-//Update, actualiza el model.Product, .exec edita los datos correspondientes con el m de model.Product
+// Update, actualiza el model.Product, .exec edita los datos correspondientes con el m de model.Product
 func (p Product) Update(m *model.Product) error {
 	_, err := p.db.Exec(
 		context.Background(),
@@ -85,7 +86,7 @@ func (p Product) Update(m *model.Product) error {
 	return nil
 }
 
-//Delete, elimina el model.Product según ID del Product
+// Delete, elimina el model.Product según ID del Product
 func (p Product) Delete(ID uuid.UUID) error {
 	_, err := p.db.Exec(
 		context.Background(),
@@ -100,7 +101,7 @@ func (p Product) Delete(ID uuid.UUID) error {
 
 }
 
-//GetByID obtiene un model.Product, según ID.
+// GetByID obtiene un model.Product, según ID.
 func (p Product) GetByID(ID uuid.UUID) (model.Product, error) {
 	query := psqlGetAll + " WHERE id = $1"
 	row := p.db.QueryRow(
@@ -112,7 +113,7 @@ func (p Product) GetByID(ID uuid.UUID) (model.Product, error) {
 	return p.scanRow(row)
 }
 
-//GetAll obtiene todos los model.Products con sus campos respectivos
+// GetAll obtiene todos los model.Products con sus campos respectivos
 func (p Product) GetAll() (model.Products, error) {
 	rows, err := p.db.Query(
 		context.Background(),
@@ -136,7 +137,7 @@ func (p Product) GetAll() (model.Products, error) {
 
 }
 
-//scanRow retorna un scan de pgx.Row de model.Product
+// scanRow retorna un scan de pgx.Row de model.Product
 func (p Product) scanRow(s pgx.Row) (model.Product, error) {
 	m := model.Product{}
 

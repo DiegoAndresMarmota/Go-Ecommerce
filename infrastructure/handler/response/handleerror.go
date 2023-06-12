@@ -1,8 +1,9 @@
 package response
 
 import (
-	"e-commerce/model"
 	"net/http"
+
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 	"github.com/labstack/echo/v4"
 )
 

@@ -1,9 +1,10 @@
 package login
 
 import (
-	"e-commerce/model"
 	"fmt"
 	"time"
+
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 	"github.com/golang-jwt/jwt"
 )
 
@@ -12,12 +13,12 @@ type Login struct {
 	useCaseUser UseCaseUser
 }
 
-//New retorna un Login de UseCaseUser de su struct
+// New retorna un Login de UseCaseUser de su struct
 func New(uc UseCaseUser) Login {
 	return Login{useCaseUser: uc}
 }
 
-//Login recibe el email, password y jwtSecretKey, valida y lo entrega al user. Se crea el model.JWT, donde el token expira en 2 horas, donde este tiene un metodo de firma HS256, enviandole el structSecreKey, y este firme el token(data). Devolviendo el user y la data firmada.
+// Login recibe el email, password y jwtSecretKey, valida y lo entrega al user. Se crea el model.JWT, donde el token expira en 2 horas, donde este tiene un metodo de firma HS256, enviandole el structSecreKey, y este firme el token(data). Devolviendo el user y la data firmada.
 func (l Login) Login(email, password, jwtSecretKey string) (model.User, string, error) {
 	user, err := l.useCaseUser.Login(email, password)
 	if err != nil {

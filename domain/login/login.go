@@ -1,6 +1,6 @@
 package login
 
-import "e-commerce/model"
+import "github.com/diegoandresmarmota/go-ecommerce/model"
 
 type UseCase interface {
 	Login(email, password, jwtSecretKey string) (model.User, string, error)

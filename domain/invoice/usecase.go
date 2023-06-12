@@ -1,10 +1,11 @@
 package ticketpurchase
 
 import (
-	"e-commerce/model"
 	"encoding/json"
 	"fmt"
 	"time"
+
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 	"github.com/google/uuid"
 )
 

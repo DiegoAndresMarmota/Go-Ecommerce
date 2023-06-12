@@ -1,10 +1,12 @@
 package purchaseorder
 
 import (
-	"e-commerce/domain/purchaseorder"
-	"e-commerce/infrastructure/handler/response"
-	"e-commerce/model"
+
+	"github.com/diegoandresmarmota/go-ecommerce/domain/purchaseorder"
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response""
 	"fmt"
+
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
@@ -18,7 +20,7 @@ func newHandler(useCase purchaseorder.UseCase) handler {
 	return handler{useCase: useCase}
 }
 
-//Create-handler realiza la creación del m en el model.PurchaseOrder
+// Create-handler realiza la creación del m en el model.PurchaseOrder
 func (h handler) Create(c echo.Context) error {
 	m := model.PurchaseOrder{}
 	if err := c.Bind(&m); err != nil {

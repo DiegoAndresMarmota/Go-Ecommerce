@@ -1,26 +1,26 @@
 package product
 
 import (
-	"e-commerce/domain/product"
-	"e-commerce/infrastructure/handler/response"
-	"e-commerce/model"
+	"github.com/diegoandresmarmota/go-ecommerce/domain/product"
+
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response""
+
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
-//
 type handler struct {
-	useCase product.UserCase
+	useCase  product.UserCase
 	response response.API
 }
 
-//
 func newHandler(useCase product.UserCase) handler {
 	return handler{useCase: useCase}
 }
 
-//Create Handler, maneja la creacion de model.Product
+// Create Handler, maneja la creacion de model.Product
 func (h handler) Create(c echo.Context) error {
 	m := model.Product{}
 
@@ -71,7 +71,7 @@ func (h handler) Delete(c echo.Context) error {
 	return c.JSON(h.response.Deleted(nil))
 }
 
-//GetByID Handler, maneja le obtención de ID del model.Product
+// GetByID Handler, maneja le obtención de ID del model.Product
 func (h handler) GetByID(c echo.Context) error {
 	ID, err := uuid.Parse(c.Param("id"))
 	if err != nil {

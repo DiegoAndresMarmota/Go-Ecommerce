@@ -1,7 +1,7 @@
 package ticketpurchase
 
 import (
-	"e-commerce/model"
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 	"github.com/google/uuid"
 )
 

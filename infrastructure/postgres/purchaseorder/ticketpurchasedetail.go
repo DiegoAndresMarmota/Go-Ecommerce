@@ -2,9 +2,11 @@ package purchaseorder
 
 import (
 	"context"
-	"e-commerce/infrastructure/postgres"
-	"e-commerce/model"
 	"log"
+
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/postgres"
+
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
@@ -22,12 +24,12 @@ var fieldsDetails = []string{
 	"updated_at",
 }
 
-//BuildSQLInsert ingresa tableDetails y fieldsDetails, para que sea utilizado dentro de la interface de domain.TicketPurchase.Storage
+// BuildSQLInsert ingresa tableDetails y fieldsDetails, para que sea utilizado dentro de la interface de domain.TicketPurchase.Storage
 var (
 	psqlInsertDetails = postgres.BuildSQLInsert(tableDetails, fieldsDetails)
 )
 
-//CreateDetails recibe los detalles de la transacción
+// CreateDetails recibe los detalles de la transacción
 func (i TicketPurchase) CreateDetailsBulk(tx pgx.Tx, details model.TicketPurchaseDetails) error {
 	batch := pgx.Batch{}
 	for _, v := range details {

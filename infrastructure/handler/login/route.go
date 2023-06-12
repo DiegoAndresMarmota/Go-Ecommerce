@@ -1,9 +1,9 @@
 package login
 
 import (
-	"e-commerce/domain/login"
-	"e-commerce/domain/user"
-	userStorage "e-commerce/infrastructure/postgres/user"
+	userStorage "github/diegoandresmarmota/e-commerce/infrastructure/postgres/user"
+	"github.com/diegoandresmarmota/go-ecommerce/domain/login"
+	"github.com/diegoandresmarmota/go-ecommerce/domain/user"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
 )

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"e-commerce/infrastructure/handler"
-	"e-commerce/infrastructure/handler/response"
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler"
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response"
 	"log"
 	"os"
 )
