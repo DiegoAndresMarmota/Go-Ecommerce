@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response""
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response"
 
 	"errors"
 	"log"

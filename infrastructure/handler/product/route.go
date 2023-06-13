@@ -1,7 +1,6 @@
 package product
 
 import (
-	"e-commerce/infrastructure/handler/middleware"
 
 	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/middleware"
 	productStorage "github.com/diegoandresmarmota/go-ecommerce/infrastructure/postgres/product"

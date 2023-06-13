@@ -3,7 +3,7 @@ package product
 import (
 	"github.com/diegoandresmarmota/go-ecommerce/domain/product"
 
-	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response""
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response"
 
 	"github.com/diegoandresmarmota/go-ecommerce/model"
 
