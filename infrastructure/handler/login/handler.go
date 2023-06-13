@@ -2,9 +2,9 @@ package login
 
 import (
 	"database/sql"
-	"github.com/diegoandresmarmota/e-commerce/infrastructure/handler/response"
-	"github.com/diegoandresmarmota/e-commerce/domain/login"
-	"github.com/diegoandresmarmota/e-commerce/model"
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response"
+	"github.com/diegoandresmarmota/go-ecommerce/domain/login"
+	"github.com/diegoandresmarmota/go-ecommerce/model"
 	"errors"
 	"net/http"
 	"os"

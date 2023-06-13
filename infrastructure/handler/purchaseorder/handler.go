@@ -3,7 +3,7 @@ package purchaseorder
 import (
 
 	"github.com/diegoandresmarmota/go-ecommerce/domain/purchaseorder"
-	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response""
+	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/response"
 	"fmt"
 
 	"github.com/diegoandresmarmota/go-ecommerce/model"
