@@ -1,7 +1,7 @@
 package user
 
 import (
-	storageUser "e-commerce/infrastructure/postgres/user"
+	storageUser "github.com/diegoandresmarmota/go-ecommerce/infrastructure/postgres/user"
 
 	"github.com/diegoandresmarmota/go-ecommerce/infrastructure/handler/middleware"
 
